@@ -1,0 +1,2 @@
+# Obsidian Periodic Notes Wrapper
+
