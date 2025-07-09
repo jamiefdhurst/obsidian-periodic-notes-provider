@@ -1,0 +1,6 @@
+.DS_Store
+.vscode
+coverage
+junit.xml
+main.js
+node_modules

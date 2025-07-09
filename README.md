@@ -1,2 +1,2 @@
-# Obsidian Periodic Notes Wrapper
+# Obsidian Periodic Notes Provider
 
