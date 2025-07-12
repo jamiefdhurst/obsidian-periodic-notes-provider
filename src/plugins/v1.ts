@@ -1,5 +1,5 @@
 import { get, Readable } from 'svelte/store';
-import { DEFAULT_SETTINGS, IPeriodicNotesPeriodicitySettings, IPeriodicNotesPluginSettings, IPeriodicNotesProvider, ISettings } from 'src';
+import { DEFAULT_SETTINGS, IPeriodicNotesPeriodicitySettings, IPeriodicNotesPluginSettings, IPeriodicNotesProvider, ISettings } from '..';
 
 export interface IV1CalendarSet {
   id: string;
@@ -29,11 +29,11 @@ export class V1Provider implements IPeriodicNotesProvider {
     to.quarterly.available = false;
     to.yearly.available = false;
     if (activeCalendarSet.length) {
-      to.daily.available = activeCalendarSet[0].day?.enabled as boolean;
-      to.weekly.available = activeCalendarSet[0].week?.enabled as boolean;
-      to.monthly.available = activeCalendarSet[0].month?.enabled as boolean;
-      to.quarterly.available = activeCalendarSet[0].quarter?.enabled as boolean;
-      to.yearly.available = activeCalendarSet[0].year?.enabled as boolean;
+      to.daily.available = activeCalendarSet[0].day?.enabled || false;
+      to.weekly.available = activeCalendarSet[0].week?.enabled || false;
+      to.monthly.available = activeCalendarSet[0].month?.enabled || false;
+      to.quarterly.available = activeCalendarSet[0].quarter?.enabled || false;
+      to.yearly.available = activeCalendarSet[0].year?.enabled || false;
     }
 
     return to;

@@ -1,4 +1,4 @@
-import { DEFAULT_SETTINGS, IPeriodicNotesPeriodicitySettings, IPeriodicNotesPluginSettings, IPeriodicNotesProvider, ISettings } from 'src';
+import { DEFAULT_SETTINGS, IPeriodicNotesPeriodicitySettings, IPeriodicNotesPluginSettings, IPeriodicNotesProvider, ISettings } from '..';
 
 export interface IV0Settings extends IPeriodicNotesPluginSettings {
   daily: IPeriodicNotesPeriodicitySettings;

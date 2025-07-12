@@ -1,5 +1,5 @@
-import { IPeriodicNotesPlugin, IPeriodicNotesProvider, ISettings, PLUGIN_NAME } from 'src';
-import { ObsidianAppWithPlugins } from 'src/types';
+import { IPeriodicNotesPlugin, IPeriodicNotesProvider, ISettings, PLUGIN_NAME } from '..';
+import { ObsidianAppWithPlugins } from '../types';
 import { IV0Settings, V0Provider } from './v0';
 import { V1Provider } from './v1';
 
