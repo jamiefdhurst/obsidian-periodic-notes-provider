@@ -1,0 +1,64 @@
+name: Test
+
+on:
+  pull_request: {}
+
+permissions:
+  contents: read
+  issues: read
+  checks: write
+  pull-requests: write
+
+env:
+  GITHUB_USERNAME: jamiefdhurst
+  GITHUB_TOKEN: example
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install Dependencies
+        run: |
+          npm i
+      - name: Test
+        run: |
+          npm run test-ci
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: tests
+          path: junit.xml
+      - name: Upload Coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/cobertura-coverage.xml
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          action_fail: true
+          files: |
+            junit.xml
+      - name: Create Code Coverage Report
+        uses: im-open/code-coverage-report-generator@4.9.0
+        with:
+          reports: coverage/cobertura-coverage.xml
+          reporttypes: MarkdownSummary
+          title: Jest Code Coverage
+      - name: Publish Code Coverage
+        uses: im-open/process-code-coverage-summary@v2.2.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          summary-file: './coverage-results/Summary.md'
+          check-name: 'Code Coverage'
+          line-threshold: 75
+          branch-threshold: 90
