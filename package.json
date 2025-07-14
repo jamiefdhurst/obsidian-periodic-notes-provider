@@ -8,8 +8,7 @@
     "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
     "test": "node --experimental-vm-modules ./node_modules/.bin/jest",
     "coverage": "jest --coverage",
-    "test-ci": "jest --ci --reporters=default --reporters=jest-junit --coverage",
-    "version": "node version-bump.mjs"
+    "test-ci": "jest --ci --reporters=default --reporters=jest-junit --coverage"
   },
   "repository": {
     "type": "git",

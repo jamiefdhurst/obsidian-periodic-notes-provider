@@ -30,6 +30,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          registry-url: 'https://registry.npmjs.org/'
       - name: Install Dependencies
         run: |
           npm i
@@ -63,9 +64,6 @@ jobs:
         with:
           files: 'package.json'
           replacements: "${{ steps.latest_clean.outputs.name }}=${{ steps.version.outputs.value }}"
-      - name: Update Version Script
-        if: ${{ contains(steps.latest.outputs.name, '.') }}
-        run: VERSION=${{ steps.version.outputs.value }} npm run version
       - name: File Save Delay
         uses: jakejarvis/wait-action@master
         with:
@@ -80,7 +78,7 @@ jobs:
         uses: ncipollo/release-action@v1.12.0
         with:
           allowUpdates: true
-          artifacts: 'main.js,manifest.json'
+          artifacts: 'main.js'
           draft: false
           makeLatest: true
           tag: ${{ steps.version.outputs.value }}
