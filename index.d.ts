@@ -1,8 +1,8 @@
 import { Moment } from 'moment';
 import { Plugin, TAbstractFile, TFile } from 'obsidian';
 
-export const PLUGIN_NAME = 'periodic-notes';
 export const PERIODIC_NOTES_EVENT_SETTING_UPDATED = 'periodic-notes:settings-updated';
+export const PLUGIN_NAME = 'periodic-notes';
 
 export interface IPeriodicSettings {
   available: boolean;

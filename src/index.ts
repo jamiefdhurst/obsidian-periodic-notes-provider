@@ -1,7 +1,7 @@
 import type { Plugin } from 'obsidian';
 
-export const PLUGIN_NAME: string = 'periodic-notes';
 export const PERIODIC_NOTES_EVENT_SETTING_UPDATED: string = 'periodic-notes:settings-updated';
+export const PLUGIN_NAME: string = 'periodic-notes';
 
 export interface IPeriodicSettings {
   available: boolean;
