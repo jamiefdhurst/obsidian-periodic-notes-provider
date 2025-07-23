@@ -8,14 +8,12 @@ const UNIT: unitOfTime.DurationConstructor = 'month';
 
 export class MonthlyNote extends Note {
 
-  private date: Moment = moment();
-
   private getDate(): Moment {
     return moment().startOf(UNIT);
   }
 
   async create(): Promise<TFile> {
-    const start: Moment = this.date.clone().startOf(UNIT);
+    const start: Moment = this.getDate().clone().startOf(UNIT);
     return createMonthlyNote(start);
   }
 
@@ -26,7 +24,7 @@ export class MonthlyNote extends Note {
   }
   
   getCurrent(): TFile {
-    return getMonthlyNote(this.date, getAllMonthlyNotes());
+    return getMonthlyNote(this.getDate(), getAllMonthlyNotes());
   }
 
   getNextDate(): Moment {
@@ -47,7 +45,7 @@ export class MonthlyNote extends Note {
   }
   
   isPresent(): boolean {
-    const start: Moment = this.date.clone().startOf(UNIT);
+    const start: Moment = this.getDate().clone().startOf(UNIT);
     const allNotes: Record<string, TFile> = getAllMonthlyNotes();
     const note: TFile = getMonthlyNote(start, allNotes);
     

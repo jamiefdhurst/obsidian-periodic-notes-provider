@@ -8,14 +8,12 @@ const UNIT: unitOfTime.DurationConstructor = 'year';
 
 export class YearlyNote extends Note {
 
-  private date: Moment = moment();
-
   private getDate(): Moment {
     return moment().startOf(UNIT);
   }
 
   async create(): Promise<TFile> {
-    const start: Moment = this.date.clone().startOf(UNIT);
+    const start: Moment = this.getDate().clone().startOf(UNIT);
     return createYearlyNote(start);
   }
 
@@ -26,7 +24,7 @@ export class YearlyNote extends Note {
   }
   
   getCurrent(): TFile {
-    return getYearlyNote(this.date, getAllYearlyNotes());
+    return getYearlyNote(this.getDate(), getAllYearlyNotes());
   }
 
   getNextDate(): Moment {
@@ -47,7 +45,7 @@ export class YearlyNote extends Note {
   }
   
   isPresent(): boolean {
-    const start: Moment = this.date.clone().startOf(UNIT);
+    const start: Moment = this.getDate().clone().startOf(UNIT);
     const allNotes: Record<string, TFile> = getAllYearlyNotes();
     const note: TFile = getYearlyNote(start, allNotes);
     
