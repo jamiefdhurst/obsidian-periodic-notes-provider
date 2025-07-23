@@ -8,14 +8,12 @@ const UNIT: unitOfTime.DurationConstructor = 'week';
 
 export class WeeklyNote extends Note {
 
-  private date: Moment = moment();
-
   private getDate(): Moment {
     return moment().startOf(UNIT);
   }
 
   async create(): Promise<TFile> {
-    const start: Moment = this.date.clone().startOf(UNIT);
+    const start: Moment = this.getDate().clone().startOf(UNIT);
     return createWeeklyNote(start);
   }
 
@@ -26,7 +24,7 @@ export class WeeklyNote extends Note {
   }
   
   getCurrent(): TFile {
-    return getWeeklyNote(this.date, getAllWeeklyNotes());
+    return getWeeklyNote(this.getDate(), getAllWeeklyNotes());
   }
 
   getNextDate(): Moment {
@@ -47,7 +45,7 @@ export class WeeklyNote extends Note {
   }
   
   isPresent(): boolean {
-    const start: Moment = this.date.clone().startOf(UNIT);
+    const start: Moment = this.getDate().clone().startOf(UNIT);
     const allNotes: Record<string, TFile> = getAllWeeklyNotes();
     const note: TFile = getWeeklyNote(start, allNotes);
     

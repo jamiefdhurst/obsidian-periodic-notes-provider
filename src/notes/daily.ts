@@ -8,14 +8,12 @@ const UNIT: unitOfTime.DurationConstructor = 'day';
 
 export class DailyNote extends Note {
 
-  private date: Moment = moment();
-
   private getDate(): Moment {
     return moment().startOf(UNIT);
   }
 
   async create(): Promise<TFile> {
-    const start: Moment = this.date.clone().startOf(UNIT);
+    const start: Moment = this.getDate().clone().startOf(UNIT);
     return createDailyNote(start);
   }
 
@@ -26,7 +24,7 @@ export class DailyNote extends Note {
   }
   
   getCurrent(): TFile {
-    return getDailyNote(this.date, getAllDailyNotes());
+    return getDailyNote(this.getDate(), getAllDailyNotes());
   }
 
   getNextDate(): Moment {
@@ -47,7 +45,7 @@ export class DailyNote extends Note {
   }
   
   isPresent(): boolean {
-    const start: Moment = this.date.clone().startOf(UNIT);
+    const start: Moment = this.getDate().clone().startOf(UNIT);
     const allNotes: Record<string, TFile> = getAllDailyNotes();
     const note: TFile = getDailyNote(start, allNotes);
     

@@ -8,14 +8,12 @@ const UNIT: unitOfTime.DurationConstructor = 'quarter';
 
 export class QuarterlyNote extends Note {
 
-  private date: Moment = moment();
-
   private getDate(): Moment {
     return moment().startOf(UNIT);
   }
 
   async create(): Promise<TFile> {
-    const start: Moment = this.date.clone().startOf(UNIT);
+    const start: Moment = this.getDate().clone().startOf(UNIT);
     return createQuarterlyNote(start);
   }
 
@@ -26,7 +24,7 @@ export class QuarterlyNote extends Note {
   }
   
   getCurrent(): TFile {
-    return getQuarterlyNote(this.date, getAllQuarterlyNotes());
+    return getQuarterlyNote(this.getDate(), getAllQuarterlyNotes());
   }
 
   getNextDate(): Moment {
@@ -47,7 +45,7 @@ export class QuarterlyNote extends Note {
   }
   
   isPresent(): boolean {
-    const start: Moment = this.date.clone().startOf(UNIT);
+    const start: Moment = this.getDate().clone().startOf(UNIT);
     const allNotes: Record<string, TFile> = getAllQuarterlyNotes();
     const note: TFile = getQuarterlyNote(start, allNotes);
     
