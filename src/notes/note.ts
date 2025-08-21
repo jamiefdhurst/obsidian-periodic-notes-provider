@@ -1,7 +1,7 @@
 import { Moment } from 'moment';
 import { TAbstractFile, TFile } from 'obsidian';
 
-const CREATE_TIME_GAP_MS = 1000;
+const CREATE_TIME_GAP_MS = 15000;
 
 export default abstract class Note {
   abstract create(): Promise<TFile>;
