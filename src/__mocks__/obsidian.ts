@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as momentImpl from 'moment';
 
 export class TAbstractFile {}
@@ -7,4 +6,3 @@ export class TFile extends TAbstractFile {
 }
 
 export const moment = momentImpl;
-

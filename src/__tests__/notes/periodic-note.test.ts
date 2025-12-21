@@ -45,15 +45,23 @@ describe('PeriodicNote', () => {
   });
 });
 
-describe.each<[string, PeriodicNoteConstructor, unitOfTime.DurationConstructor, PeriodicNoteFunctions]>([
+describe.each<
+  [string, PeriodicNoteConstructor, unitOfTime.DurationConstructor, PeriodicNoteFunctions]
+>([
   [
     'Daily Note',
     DailyNote,
     'day',
     {
-      create: dailyNotesInterface.createDailyNote as jest.MockedFunction<typeof dailyNotesInterface.createDailyNote>,
-      getAll: dailyNotesInterface.getAllDailyNotes as jest.MockedFunction<typeof dailyNotesInterface.getAllDailyNotes>,
-      get: dailyNotesInterface.getDailyNote as jest.MockedFunction<typeof dailyNotesInterface.getDailyNote>,
+      create: dailyNotesInterface.createDailyNote as jest.MockedFunction<
+        typeof dailyNotesInterface.createDailyNote
+      >,
+      getAll: dailyNotesInterface.getAllDailyNotes as jest.MockedFunction<
+        typeof dailyNotesInterface.getAllDailyNotes
+      >,
+      get: dailyNotesInterface.getDailyNote as jest.MockedFunction<
+        typeof dailyNotesInterface.getDailyNote
+      >,
     },
   ],
   [
@@ -61,9 +69,15 @@ describe.each<[string, PeriodicNoteConstructor, unitOfTime.DurationConstructor, 
     WeeklyNote,
     'week',
     {
-      create: dailyNotesInterface.createWeeklyNote as jest.MockedFunction<typeof dailyNotesInterface.createWeeklyNote>,
-      getAll: dailyNotesInterface.getAllWeeklyNotes as jest.MockedFunction<typeof dailyNotesInterface.getAllWeeklyNotes>,
-      get: dailyNotesInterface.getWeeklyNote as jest.MockedFunction<typeof dailyNotesInterface.getWeeklyNote>,
+      create: dailyNotesInterface.createWeeklyNote as jest.MockedFunction<
+        typeof dailyNotesInterface.createWeeklyNote
+      >,
+      getAll: dailyNotesInterface.getAllWeeklyNotes as jest.MockedFunction<
+        typeof dailyNotesInterface.getAllWeeklyNotes
+      >,
+      get: dailyNotesInterface.getWeeklyNote as jest.MockedFunction<
+        typeof dailyNotesInterface.getWeeklyNote
+      >,
     },
   ],
   [
@@ -71,9 +85,15 @@ describe.each<[string, PeriodicNoteConstructor, unitOfTime.DurationConstructor, 
     MonthlyNote,
     'month',
     {
-      create: dailyNotesInterface.createMonthlyNote as jest.MockedFunction<typeof dailyNotesInterface.createMonthlyNote>,
-      getAll: dailyNotesInterface.getAllMonthlyNotes as jest.MockedFunction<typeof dailyNotesInterface.getAllMonthlyNotes>,
-      get: dailyNotesInterface.getMonthlyNote as jest.MockedFunction<typeof dailyNotesInterface.getMonthlyNote>,
+      create: dailyNotesInterface.createMonthlyNote as jest.MockedFunction<
+        typeof dailyNotesInterface.createMonthlyNote
+      >,
+      getAll: dailyNotesInterface.getAllMonthlyNotes as jest.MockedFunction<
+        typeof dailyNotesInterface.getAllMonthlyNotes
+      >,
+      get: dailyNotesInterface.getMonthlyNote as jest.MockedFunction<
+        typeof dailyNotesInterface.getMonthlyNote
+      >,
     },
   ],
   [
@@ -81,9 +101,15 @@ describe.each<[string, PeriodicNoteConstructor, unitOfTime.DurationConstructor, 
     QuarterlyNote,
     'quarter',
     {
-      create: dailyNotesInterface.createQuarterlyNote as jest.MockedFunction<typeof dailyNotesInterface.createQuarterlyNote>,
-      getAll: dailyNotesInterface.getAllQuarterlyNotes as jest.MockedFunction<typeof dailyNotesInterface.getAllQuarterlyNotes>,
-      get: dailyNotesInterface.getQuarterlyNote as jest.MockedFunction<typeof dailyNotesInterface.getQuarterlyNote>,
+      create: dailyNotesInterface.createQuarterlyNote as jest.MockedFunction<
+        typeof dailyNotesInterface.createQuarterlyNote
+      >,
+      getAll: dailyNotesInterface.getAllQuarterlyNotes as jest.MockedFunction<
+        typeof dailyNotesInterface.getAllQuarterlyNotes
+      >,
+      get: dailyNotesInterface.getQuarterlyNote as jest.MockedFunction<
+        typeof dailyNotesInterface.getQuarterlyNote
+      >,
     },
   ],
   [
@@ -91,9 +117,15 @@ describe.each<[string, PeriodicNoteConstructor, unitOfTime.DurationConstructor, 
     YearlyNote,
     'year',
     {
-      create: dailyNotesInterface.createYearlyNote as jest.MockedFunction<typeof dailyNotesInterface.createYearlyNote>,
-      getAll: dailyNotesInterface.getAllYearlyNotes as jest.MockedFunction<typeof dailyNotesInterface.getAllYearlyNotes>,
-      get: dailyNotesInterface.getYearlyNote as jest.MockedFunction<typeof dailyNotesInterface.getYearlyNote>,
+      create: dailyNotesInterface.createYearlyNote as jest.MockedFunction<
+        typeof dailyNotesInterface.createYearlyNote
+      >,
+      getAll: dailyNotesInterface.getAllYearlyNotes as jest.MockedFunction<
+        typeof dailyNotesInterface.getAllYearlyNotes
+      >,
+      get: dailyNotesInterface.getYearlyNote as jest.MockedFunction<
+        typeof dailyNotesInterface.getYearlyNote
+      >,
     },
   ],
 ])('%s', (name, NoteClass, unit, fns) => {

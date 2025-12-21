@@ -16,12 +16,12 @@ export interface ISettings {
 }
 
 export const DEFAULT_SETTINGS: ISettings = {
-  daily: {available: false},
-  weekly: {available: false},
-  monthly: {available: false},
-  quarterly: {available: false},
-  yearly: {available: false},
-}
+  daily: { available: false },
+  weekly: { available: false },
+  monthly: { available: false },
+  quarterly: { available: false },
+  yearly: { available: false },
+};
 
 export interface IPeriodicNotesPeriodicitySettings {
   enabled: boolean;

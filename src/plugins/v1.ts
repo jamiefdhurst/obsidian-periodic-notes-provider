@@ -1,5 +1,11 @@
 import { get, Readable } from 'svelte/store';
-import { DEFAULT_SETTINGS, IPeriodicNotesPeriodicitySettings, IPeriodicNotesPluginSettings, IPeriodicNotesProvider, ISettings } from '..';
+import {
+  DEFAULT_SETTINGS,
+  IPeriodicNotesPeriodicitySettings,
+  IPeriodicNotesPluginSettings,
+  IPeriodicNotesProvider,
+  ISettings,
+} from '..';
 
 export interface IV1CalendarSet {
   id: string;
@@ -20,7 +26,9 @@ export class V1Provider implements IPeriodicNotesProvider {
   convertSettings(from: IPeriodicNotesPluginSettings): ISettings {
     const readableFrom = from as Readable<IV1Settings>;
     const convertedFrom = get(readableFrom) as IV1Settings;
-    const activeCalendarSet = convertedFrom.calendarSets.filter(c => c.id === convertedFrom.activeCalendarSet);
+    const activeCalendarSet = convertedFrom.calendarSets.filter(
+      (c) => c.id === convertedFrom.activeCalendarSet
+    );
 
     const to: ISettings = Object.assign({}, DEFAULT_SETTINGS);
     to.daily.available = false;
