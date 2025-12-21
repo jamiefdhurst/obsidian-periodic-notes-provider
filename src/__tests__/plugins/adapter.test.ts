@@ -31,11 +31,11 @@ describe('Plugin Adapter', () => {
     const plugin = {
       settings: {
         daily: { enabled: true },
-        weekly:  { enabled: false },
-        monthly:  { enabled: false },
-        quarterly:  { enabled: false },
-        yearly:  { enabled: false },
-      }
+        weekly: { enabled: false },
+        monthly: { enabled: false },
+        quarterly: { enabled: false },
+        yearly: { enabled: false },
+      },
     } as unknown as IPeriodicNotesPlugin;
     jest.spyOn(app.plugins, 'getPlugin').mockReturnValue(plugin);
 

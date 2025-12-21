@@ -28,14 +28,16 @@ describe('V1 Provider', () => {
     let settings = writable<IV1Settings>();
     settings.set({
       activeCalendarSet: '1234',
-      calendarSets: [{
-        id: '1234',
-        day: { enabled: true },
-        week: { enabled: true },
-        month: { enabled: false },
-        quarter: { enabled: false },
-        year: { enabled: true },
-      }],
+      calendarSets: [
+        {
+          id: '1234',
+          day: { enabled: true },
+          week: { enabled: true },
+          month: { enabled: false },
+          quarter: { enabled: false },
+          year: { enabled: true },
+        },
+      ],
     } as IV1Settings);
 
     const result = sut.convertSettings(settings);
@@ -51,9 +53,11 @@ describe('V1 Provider', () => {
     let settings = writable<IV1Settings>();
     settings.set({
       activeCalendarSet: '1234',
-      calendarSets: [{
-        id: '1234',
-      }],
+      calendarSets: [
+        {
+          id: '1234',
+        },
+      ],
     } as IV1Settings);
 
     const result = sut.convertSettings(settings);

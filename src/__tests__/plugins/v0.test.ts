@@ -10,10 +10,10 @@ describe('V0 Provider', () => {
   it('should convert settings', () => {
     const settings = {
       daily: { enabled: true },
-      weekly:  { enabled: false },
-      monthly:  { enabled: false },
-      quarterly:  { enabled: false },
-      yearly:  { enabled: true },
+      weekly: { enabled: false },
+      monthly: { enabled: false },
+      quarterly: { enabled: false },
+      yearly: { enabled: true },
     } as IV0Settings;
 
     const result = sut.convertSettings(settings);
