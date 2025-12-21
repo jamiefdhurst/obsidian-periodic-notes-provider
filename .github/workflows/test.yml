@@ -70,7 +70,7 @@ jobs:
           reporttypes: MarkdownSummary
           title: Jest Code Coverage
       - name: Publish Code Coverage
-        uses: im-open/process-code-coverage-summary@v2.2.3
+        uses: im-open/process-code-coverage-summary@v2.3.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           summary-file: './coverage-results/Summary.md'
