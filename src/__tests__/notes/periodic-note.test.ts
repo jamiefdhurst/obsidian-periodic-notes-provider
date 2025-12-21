@@ -164,8 +164,8 @@ describe.each<
       example1: new TFile(),
       example2: new TFile(),
     };
-    files.example1.path = 'example/example-1.md';
-    files.example2.path = 'example/example-2.md';
+    files.example1!.path = 'example/example-1.md';
+    files.example2!.path = 'example/example-2.md';
     mockGetAllNotes.mockReturnValue(files);
 
     const result = sut.getAllPaths();

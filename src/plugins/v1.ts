@@ -37,11 +37,11 @@ export class V1Provider implements IPeriodicNotesProvider {
     to.quarterly.available = false;
     to.yearly.available = false;
     if (activeCalendarSet.length) {
-      to.daily.available = activeCalendarSet[0].day?.enabled || false;
-      to.weekly.available = activeCalendarSet[0].week?.enabled || false;
-      to.monthly.available = activeCalendarSet[0].month?.enabled || false;
-      to.quarterly.available = activeCalendarSet[0].quarter?.enabled || false;
-      to.yearly.available = activeCalendarSet[0].year?.enabled || false;
+      to.daily.available = activeCalendarSet[0]!.day?.enabled || false;
+      to.weekly.available = activeCalendarSet[0]!.week?.enabled || false;
+      to.monthly.available = activeCalendarSet[0]!.month?.enabled || false;
+      to.quarterly.available = activeCalendarSet[0]!.quarter?.enabled || false;
+      to.yearly.available = activeCalendarSet[0]!.year?.enabled || false;
     }
 
     return to;

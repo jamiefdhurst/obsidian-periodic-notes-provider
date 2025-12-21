@@ -28,9 +28,24 @@ jobs:
       - name: Install Dependencies
         run: |
           npm i
+      - name: Security Audit
+        run: |
+          npm audit --audit-level=moderate
+        continue-on-error: true
       - name: Test
         run: |
           npm run test-ci
+      - name: Build
+        run: |
+          npm run build
+      - name: Check Bundle Size
+        run: |
+          SIZE=$(stat -f%z main.js 2>/dev/null || stat -c%s main.js)
+          echo "Bundle size: $SIZE bytes ($(echo "scale=2; $SIZE / 1024" | bc) KB)"
+          echo "BUNDLE_SIZE=$SIZE" >> $GITHUB_ENV
+          if [ $SIZE -gt 30720 ]; then
+            echo "::warning::Bundle size ($SIZE bytes) exceeds 30KB threshold"
+          fi
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
         with:
@@ -42,7 +57,7 @@ jobs:
           name: coverage
           path: coverage/cobertura-coverage.xml
       - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
+        uses: EnricoMi/publish-unit-test-result-action@v3
         if: always()
         with:
           action_fail: true
