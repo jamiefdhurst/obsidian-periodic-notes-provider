@@ -47,12 +47,12 @@ jobs:
             echo "::warning::Bundle size ($SIZE bytes) exceeds 30KB threshold"
           fi
       - name: Upload Test Results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: tests
           path: junit.xml
       - name: Upload Coverage
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: coverage
           path: coverage/cobertura-coverage.xml
