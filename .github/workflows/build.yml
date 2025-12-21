@@ -69,7 +69,7 @@ jobs:
         with:
           time: '2s'
       - name: Commit Version Changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "[skip ci] Update version to v${{ steps.version.outputs.value }}"
       - name: Build
