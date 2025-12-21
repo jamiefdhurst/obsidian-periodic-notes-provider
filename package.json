@@ -1,6 +1,6 @@
 {
   "name": "obsidian-periodic-notes-provider",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Provides a consistent interface to interact with the Obsidian Periodic Notes plugin, primarily used for the Auto Periodic Notes and Auto Tasks plugins.",
   "main": "main.js",
   "scripts": {
