@@ -4,17 +4,14 @@ module.exports = {
   verbose: true,
   preset: 'ts-jest',
   transform: {
-    '^.+\\.ts$': 'ts-jest',
-  },
-  moduleFileExtensions: ['js', 'd.ts', 'ts'],
-  globals: {
-    'ts-jest': {
-      tsConfig: {
+    '^.+\\.ts$': ['ts-jest', {
+      tsconfig: {
         module: 'CommonJS',
         verbatimModuleSyntax: false,
       }
-    }
+    }],
   },
+  moduleFileExtensions: ['js', 'd.ts', 'ts'],
   coverageReporters: ['html', 'text', 'cobertura'],
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',
