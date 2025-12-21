@@ -17,11 +17,11 @@ jobs:
   Test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 1
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
           cache: 'npm'
@@ -47,12 +47,12 @@ jobs:
             echo "::warning::Bundle size ($SIZE bytes) exceeds 30KB threshold"
           fi
       - name: Upload Test Results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: tests
           path: junit.xml
       - name: Upload Coverage
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: coverage
           path: coverage/cobertura-coverage.xml
@@ -70,7 +70,7 @@ jobs:
           reporttypes: MarkdownSummary
           title: Jest Code Coverage
       - name: Publish Code Coverage
-        uses: im-open/process-code-coverage-summary@v2.2.3
+        uses: im-open/process-code-coverage-summary@v2.3.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           summary-file: './coverage-results/Summary.md'
