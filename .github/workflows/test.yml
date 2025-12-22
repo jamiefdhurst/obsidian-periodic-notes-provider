@@ -20,6 +20,62 @@ jobs:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
+      - name: Validate Commit Messages
+        run: |
+          chmod +x .husky/commit-msg
+
+          # Get all commits in the PR
+          BASE_REF="${{ github.event.pull_request.base.ref }}"
+          COMMITS=$(git log origin/$BASE_REF..HEAD --pretty=format:"%H|||%s")
+
+          if [ -z "$COMMITS" ]; then
+            echo "✅ No commits to validate"
+            exit 0
+          fi
+
+          # Track validation results
+          invalid_commits=()
+          valid_count=0
+
+          # Validate each commit using the same hook used locally
+          while IFS='|||' read -r hash message; do
+            [ -z "$message" ] && continue
+
+            # Write message to temp file
+            echo "$message" > /tmp/commit-msg.txt
+
+            # Validate using the commit-msg hook
+            if .husky/commit-msg /tmp/commit-msg.txt 2>&1 | grep -q "❌ Invalid"; then
+              echo "❌ $message"
+              invalid_commits+=("$hash|||$message")
+            else
+              echo "✅ $message"
+              ((valid_count++))
+            fi
+          done <<< "$COMMITS"
+
+          rm -f /tmp/commit-msg.txt
+
+          echo ""
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+
+          # Report results
+          if [ ${#invalid_commits[@]} -eq 0 ]; then
+            echo "✅ All $valid_count commit(s) follow the convention"
+            exit 0
+          else
+            echo "❌ Found ${#invalid_commits[@]} invalid commit message(s):"
+            echo ""
+            for commit in "${invalid_commits[@]}"; do
+              IFS='|||' read -r hash msg <<< "$commit"
+              short_hash=$(echo "$hash" | cut -c1-7)
+              echo "  $short_hash: $msg"
+            done
+            echo ""
+            echo "See .github/COMMIT_CONVENTION.md for details on the commit message format"
+            exit 1
+          fi
       - name: Setup Node
         uses: actions/setup-node@v6
         with:

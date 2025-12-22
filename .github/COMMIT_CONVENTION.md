@@ -79,7 +79,12 @@ Added feature
 
 ## Automatic Validation
 
-A git hook validates your commit messages automatically. If your message doesn't follow the convention, you'll see a helpful error message with examples.
+Commit messages are validated in two places:
+
+1. **Locally (git hook)**: When you commit, a git hook validates your message. If invalid, you'll see a helpful error message with examples.
+2. **In CI (GitHub Actions)**: All commits in a pull request are validated using the same hook. The PR will fail if any commits don't follow the convention.
+
+This ensures everyone follows the same standards, whether they have git hooks installed or not.
 
 ## Version Calculation
 
@@ -93,3 +98,4 @@ A git hook validates your commit messages automatically. If your message doesn't
 - `[skip ci]` commits (auto-generated) are skipped from validation
 - Only non-releasable changes (docs/test/chore/build/ci/style/revert) won't trigger a release
 - If a PR contains both releasable and non-releasable commits, a release will be triggered
+- Dependabot is configured to use `chore(deps):` format automatically
