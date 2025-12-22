@@ -23,10 +23,10 @@ while IFS= read -r commit; do
   # Convert to lowercase for case-insensitive matching
   commit_lower=$(echo "$commit" | tr '[:upper:]' '[:lower:]')
 
-  # Skip commits that are only documentation or tests
-  if [[ "$commit_lower" =~ ^docs?:|^documentation:|^test:|^tests: ]] || \
+  # Skip commits that are only documentation, tests, chores, build, ci, style, or reverts
+  if [[ "$commit_lower" =~ ^docs?(\(.*\))?:|^documentation:|^test(s)?(\(.*\))?:|^chore(\(.*\))?:|^build(\(.*\))?:|^ci(\(.*\))?:|^style(\(.*\))?:|^revert(\(.*\))?: ]] || \
      [[ "$commit_lower" =~ ^update.*documentation|^update.*readme|^update.*test ]]; then
-    echo "Skipping docs/test commit: $commit"
+    echo "Skipping non-release commit: $commit"
     continue
   fi
 
@@ -51,9 +51,9 @@ while IFS= read -r commit; do
   # Everything else defaults to patch (fixes, updates, refactors, etc.)
 done <<< "$COMMITS"
 
-# If only docs/tests were changed, don't create a release
+# If only non-releasable commits were found, don't create a release
 if [ "$HAS_RELEASABLE_COMMITS" = false ]; then
-  echo "Only documentation or test changes found - no release needed"
+  echo "Only non-releasable changes found (docs/test/chore/build/ci/style/revert) - no release needed"
   BUMP_TYPE="none"
 fi
 
