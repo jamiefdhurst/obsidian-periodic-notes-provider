@@ -1,6 +1,7 @@
 import { IPeriodicNotesPlugin, PLUGIN_NAME } from '../..';
-import { PeriodicNotesPluginAdapter } from '../../plugins';
+import { IV1Settings, PeriodicNotesPluginAdapter } from '../../plugins';
 import { CommunityPluginManager, ObsidianAppWithPlugins } from '../../types';
+import { writable } from 'svelte/store';
 
 describe('Plugin Adapter', () => {
   let app: ObsidianAppWithPlugins;
@@ -36,6 +37,32 @@ describe('Plugin Adapter', () => {
         quarterly: { enabled: false },
         yearly: { enabled: false },
       },
+    } as unknown as IPeriodicNotesPlugin;
+    jest.spyOn(app.plugins, 'getPlugin').mockReturnValue(plugin);
+
+    const result = sut.convertSettings();
+
+    expect(result.daily.available).toEqual(true);
+    expect(result.weekly.available).toEqual(false);
+  });
+
+  it('converts settings correctly for v1', () => {
+    const settings: IV1Settings = {
+      activeCalendarSet: 'foobar',
+      calendarSets: [
+        {
+          id: 'foobar',
+          day: {
+            enabled: true,
+          },
+          week: {
+            enabled: false,
+          },
+        },
+      ],
+    };
+    const plugin = {
+      settings: writable(settings),
     } as unknown as IPeriodicNotesPlugin;
     jest.spyOn(app.plugins, 'getPlugin').mockReturnValue(plugin);
 
