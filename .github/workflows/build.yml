@@ -81,7 +81,7 @@ jobs:
           OUTPUT: release_notes.md
       - name: Create Release
         if: steps.version.outputs.should_release == 'true'
-        uses: ncipollo/release-action@v1.12.0
+        uses: ncipollo/release-action@v1.20.0
         with:
           allowUpdates: true
           artifacts: 'main.js'
