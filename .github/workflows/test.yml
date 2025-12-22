@@ -19,12 +19,33 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          fetch-depth: 1
+          fetch-depth: 0
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
           node-version: '20'
           cache: 'npm'
+      - name: Calculate Version Impact
+        id: version
+        run: |
+          chmod +x .github/scripts/calculate-version.sh
+          .github/scripts/calculate-version.sh
+      - name: Comment PR with Version Impact
+        uses: thollander/actions-comment-pull-request@v3
+        with:
+          message: |
+            ## 📦 Version Impact
+
+            **Current version:** `${{ steps.version.outputs.previous_version }}`
+            **Next version:** `${{ steps.version.outputs.version }}`
+            **Bump type:** `${{ steps.version.outputs.bump_type }}`
+            **Will release:** ${{ steps.version.outputs.should_release == 'true' && '✅ Yes' || '❌ No (docs/tests only)' }}
+
+            ---
+
+            <sub>This PR will ${{ steps.version.outputs.should_release == 'true' && format('trigger a **{0}** version bump from `{1}` to `{2}`', steps.version.outputs.bump_type, steps.version.outputs.previous_version, steps.version.outputs.version) || 'not trigger a release (only documentation or test changes)' }}</sub>
+          comment_tag: version_impact
+          mode: recreate
       - name: Install Dependencies
         run: |
           npm i
