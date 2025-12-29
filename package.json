@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node esbuild.config.mjs",
     "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
-    "test": "node --experimental-vm-modules ./node_modules/.bin/jest",
+    "test": "jest",
     "coverage": "jest --coverage",
     "test-ci": "jest --ci --reporters=default --reporters=jest-junit --coverage",
     "format": "prettier --write \"src/**/*.{ts,js,json,md}\"",
@@ -41,7 +41,7 @@
     "moment": "2.29",
     "obsidian": "1.6.6",
     "prettier": "^3.4.2",
-    "svelte": "^3.59.2",
+    "svelte": "^5.46.1",
     "ts-jest": "^29.4.6",
     "tslib": "^2.6.3",
     "typescript": "^5.9.3"
