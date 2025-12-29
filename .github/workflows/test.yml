@@ -25,10 +25,13 @@ jobs:
           chmod +x .husky/commit-msg
 
           # Get all commits in the PR
-          BASE_REF="${{ github.event.pull_request.base.ref }}"
-          COMMITS=$(git log origin/$BASE_REF..HEAD --pretty=format:"%H|||%s")
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          HEAD_SHA="${{ github.event.pull_request.head.sha }}"
 
-          if [ -z "$COMMITS" ]; then
+          # Get commit hashes into an array
+          mapfile -t commit_hashes < <(git log $BASE_SHA..$HEAD_SHA --pretty=format:"%H")
+
+          if [ ${#commit_hashes[@]} -eq 0 ]; then
             echo "✅ No commits to validate"
             exit 0
           fi
@@ -38,8 +41,8 @@ jobs:
           valid_count=0
 
           # Validate each commit using the same hook used locally
-          while IFS='|||' read -r hash message; do
-            [ -z "$message" ] && continue
+          for hash in "${commit_hashes[@]}"; do
+            message=$(git log -1 --pretty=format:"%s" "$hash")
 
             # Write message to temp file
             echo "$message" > /tmp/commit-msg.txt
@@ -50,9 +53,9 @@ jobs:
               invalid_commits+=("$hash|||$message")
             else
               echo "✅ $message"
-              ((valid_count++))
+              valid_count=$((valid_count + 1))
             fi
-          done <<< "$COMMITS"
+          done
 
           rm -f /tmp/commit-msg.txt
 
@@ -68,7 +71,8 @@ jobs:
             echo "❌ Found ${#invalid_commits[@]} invalid commit message(s):"
             echo ""
             for commit in "${invalid_commits[@]}"; do
-              IFS='|||' read -r hash msg <<< "$commit"
+              hash="${commit%%|||*}"
+              msg="${commit#*|||}"
               short_hash=$(echo "$hash" | cut -c1-7)
               echo "  $short_hash: $msg"
             done
