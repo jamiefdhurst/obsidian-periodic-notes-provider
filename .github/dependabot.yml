@@ -7,14 +7,13 @@ updates:
       interval: "weekly"
       day: "monday"
     open-pull-requests-limit: 10
+    labels:
+      - "⬆️ dependencies"
     commit-message:
       prefix: "chore"
       prefix-development: "chore"
       include: "scope"
     ignore:
-      # Keep Svelte on v3.x - required for Periodic Notes plugin v1.0.0 compatibility
-      - dependency-name: "svelte"
-        update-types: ["version-update:semver-major"]
       # Keep Obsidian at current version - controlled via package.json overrides
       - dependency-name: "obsidian"
     groups:
@@ -44,6 +43,8 @@ updates:
       interval: "weekly"
       day: "monday"
     open-pull-requests-limit: 5
+    labels:
+      - "⬆️ dependencies"
     commit-message:
       prefix: "chore"
       include: "scope"
