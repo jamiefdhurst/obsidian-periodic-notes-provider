@@ -11,8 +11,8 @@
     "test-ci": "jest --ci --reporters=default --reporters=jest-junit --coverage",
     "format": "prettier --write \"src/**/*.{ts,js,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,js,json,md}\"",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "prepare": "husky"
   },
   "repository": {
