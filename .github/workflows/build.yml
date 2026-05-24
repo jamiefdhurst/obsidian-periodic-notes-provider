@@ -12,6 +12,7 @@ on:
       - '*.md'
       - 'docs/**'
       - 'src/**'
+  workflow_dispatch:
 
 permissions:
   contents: write
