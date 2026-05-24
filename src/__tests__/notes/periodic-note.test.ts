@@ -159,6 +159,15 @@ describe.each<
     mock.mockReset();
   });
 
+  it('throws an error when note creation fails', async () => {
+    const mock = fns.create;
+    mock.mockResolvedValue(undefined);
+
+    await expect(sut.create()).rejects.toThrow('Failed to create');
+
+    mock.mockReset();
+  });
+
   it('gets the paths of all notes', () => {
     const files: Record<string, TFile> = {
       example1: new TFile(),
@@ -186,7 +195,7 @@ describe.each<
 
     const result = sut.getCurrent();
 
-    expect(result.basename).toEqual(fileName);
+    expect(result!.basename).toEqual(fileName);
   });
 
   it('gets next date', () => {
@@ -204,7 +213,7 @@ describe.each<
 
     const result = sut.getPrevious();
 
-    expect(result.basename).toEqual(fileName);
+    expect(result!.basename).toEqual(fileName);
   });
 
   it('gets an undefined note if the previous limit is reached', () => {

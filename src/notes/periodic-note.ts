@@ -9,9 +9,9 @@ const CREATE_TIME_GAP_MS = 15000;
 interface PeriodicNoteConfig {
   unit: unitOfTime.DurationConstructor;
   maxPrevious: number;
-  createNote: (date: Moment) => Promise<TFile>;
+  createNote: (date: Moment) => Promise<TFile | undefined>;
   getAllNotes: () => Record<string, TFile>;
-  getNote: (date: Moment, allNotes: Record<string, TFile>) => TFile;
+  getNote: (date: Moment, allNotes: Record<string, TFile>) => TFile | undefined;
 }
 
 /**
@@ -56,7 +56,11 @@ export abstract class PeriodicNote {
    */
   async create(): Promise<TFile> {
     const start: Moment = this.getDate().clone().startOf(this.config.unit);
-    return this.config.createNote(start);
+    const note = await this.config.createNote(start);
+    if (!note) {
+      throw new Error(`Failed to create ${this.config.unit} note`);
+    }
+    return note;
   }
 
   /**
@@ -86,7 +90,7 @@ export abstract class PeriodicNote {
    * const currentMonth = monthly.getCurrent();
    * ```
    */
-  getCurrent(): TFile {
+  getCurrent(): TFile | undefined {
     return this.config.getNote(this.getDate(), this.config.getAllNotes());
   }
 
@@ -117,11 +121,11 @@ export abstract class PeriodicNote {
    * // Returns most recent daily note within the last 30 days
    * ```
    */
-  getPrevious(): TFile {
+  getPrevious(): TFile | undefined {
     let date: Moment = this.getDate().clone().subtract(1, this.config.unit);
     const limit = date.clone().subtract(this.config.maxPrevious, this.config.unit);
     const allNotes: Record<string, TFile> = this.config.getAllNotes();
-    let note: TFile;
+    let note: TFile | undefined;
     do {
       note = this.config.getNote(date, allNotes);
       date.subtract(1, this.config.unit);
@@ -145,7 +149,7 @@ export abstract class PeriodicNote {
   isPresent(): boolean {
     const start: Moment = this.getDate().clone().startOf(this.config.unit);
     const allNotes: Record<string, TFile> = this.config.getAllNotes();
-    const note: TFile = this.config.getNote(start, allNotes);
+    const note: TFile | undefined = this.config.getNote(start, allNotes);
 
     return !!note;
   }
@@ -164,7 +168,7 @@ export abstract class PeriodicNote {
    * ```
    */
   isValid(file: TAbstractFile): boolean {
-    const note: TFile = this.config.getNote(this.getDate(), this.config.getAllNotes());
+    const note: TFile | undefined = this.config.getNote(this.getDate(), this.config.getAllNotes());
 
     if (!note) {
       return false;
