@@ -47,7 +47,7 @@
     "typescript": "5.9.3"
   },
   "dependencies": {
-    "obsidian-daily-notes-interface": "0.9.4"
+    "obsidian-daily-notes-interface": "0.9.5"
   },
   "overrides": {
     "obsidian-daily-notes-interface": {
