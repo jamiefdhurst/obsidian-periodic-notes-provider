@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-05-24
+
+### Other
+
+- chore(deps-dev): bump globals from 17.5.0 to 17.6.0 (311ad60)
+- (b1640b8)
+- chore(deps-dev): bump the typescript-eslint group with 2 updates (4c2ad14)
+- (212177b)
+- chore(deps-dev): bump lint-staged (43c817d)
+- (09c0ca1)
+- chore(deps-dev): bump builtin-modules from 5.1.0 to 5.2.0 (7690fe1)
+- (bc5df96)
+- chore(deps-dev): bump the jest group across 1 directory with 2 updates (57450c8)
+- (e3b8c88)
+- chore(deps-dev): bump svelte from 5.55.5 to 5.55.7 (c08d51e)
+- (0941d17)
+- chore(deps-dev): bump the typescript-eslint group with 2 updates (8620da3)
+- (b19875c)
+- chore(deps-dev): bump lint-staged (5433128)
+- (2a3ca04)
+- chore(deps-dev): bump svelte from 5.55.7 to 5.55.8 (03fc386)
+- (d2056eb)
+- chore: bump obsidian-daily-notes-interface from 0.9.4 to 0.9.5 (c6200a0)
+- breaking: update getCurrent and getPrevious to return TFile | undefined (63a0fbd)
+- (2201db3)
+- ci: use PAT in dependabot auto-merge to trigger downstream workflows (0c89765)
+- ci: add workflow_dispatch to Build workflow for manual triggering (6d9a195)
+
 ## [1.0.1] - 2026-05-04
 
 ### Fixed
@@ -124,6 +152,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - (0c11f25)
 - chore(deps-dev): bump the typescript-eslint group with 2 updates (aa8e9b0)
 - (4996078)
+- [skip ci] Update version to v1.0.1 (feac58b)
 
 ## [1.0.0] - 2025-12-29
 
