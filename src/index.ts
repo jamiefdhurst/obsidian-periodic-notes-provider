@@ -23,6 +23,26 @@ export const DEFAULT_SETTINGS: ISettings = {
   yearly: { available: false },
 };
 
+/**
+ * Builds a fresh ISettings with every periodicity set to the given availability.
+ *
+ * Providers must not start from DEFAULT_SETTINGS via Object.assign - that is a
+ * shallow copy, so the nested IPeriodicSettings objects would be shared with the
+ * exported constant and writing to them would mutate it for every consumer.
+ *
+ * @param available - The availability to apply to all periodicities
+ * @returns A new ISettings object sharing no references with DEFAULT_SETTINGS
+ */
+export function buildSettings(available: boolean = false): ISettings {
+  return {
+    daily: { available },
+    weekly: { available },
+    monthly: { available },
+    quarterly: { available },
+    yearly: { available },
+  };
+}
+
 export interface IPeriodicNotesPeriodicitySettings {
   enabled: boolean;
 }
@@ -34,7 +54,11 @@ export interface IPeriodicNotesPlugin extends Plugin {
 }
 
 export interface IPeriodicNotesProvider {
-  convertSettings(from: IPeriodicNotesPluginSettings): ISettings;
+  /**
+   * @param from - The source plugin's settings, absent for providers that do
+   *   not read from another plugin
+   */
+  convertSettings(from?: IPeriodicNotesPluginSettings): ISettings;
 }
 
 export * from './notes';

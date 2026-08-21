@@ -28,6 +28,42 @@ describe('Plugin Adapter', () => {
     expect(sut.isEnabled()).toEqual(true);
   });
 
+  it('falls back to the native provider when the plugin is absent', () => {
+    app.plugins.enabledPlugins = new Set<string>();
+    jest.spyOn(app.plugins, 'getPlugin').mockReturnValue(undefined);
+
+    const result = sut.convertSettings();
+
+    expect(sut.isNative()).toEqual(true);
+    expect(result.daily.available).toEqual(true);
+    expect(result.quarterly.available).toEqual(true);
+    expect(result.yearly.available).toEqual(true);
+  });
+
+  it('falls back to the native provider when the plugin is enabled but unreadable', () => {
+    app.plugins.enabledPlugins = new Set<string>([PLUGIN_NAME]);
+    jest.spyOn(app.plugins, 'getPlugin').mockReturnValue(undefined);
+
+    expect(sut.isNative()).toEqual(true);
+    expect(sut.convertSettings().daily.available).toEqual(true);
+  });
+
+  it('reports native as false when the plugin supplies settings', () => {
+    app.plugins.enabledPlugins = new Set<string>([PLUGIN_NAME]);
+    const plugin = {
+      settings: {
+        daily: { enabled: true },
+        weekly: { enabled: false },
+        monthly: { enabled: false },
+        quarterly: { enabled: false },
+        yearly: { enabled: false },
+      },
+    } as unknown as IPeriodicNotesPlugin;
+    jest.spyOn(app.plugins, 'getPlugin').mockReturnValue(plugin);
+
+    expect(sut.isNative()).toEqual(false);
+  });
+
   it('converts settings correctly for v0', () => {
     const plugin = {
       settings: {

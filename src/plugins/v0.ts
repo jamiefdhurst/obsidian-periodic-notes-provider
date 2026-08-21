@@ -1,5 +1,5 @@
 import {
-  DEFAULT_SETTINGS,
+  buildSettings,
   IPeriodicNotesPeriodicitySettings,
   IPeriodicNotesPluginSettings,
   IPeriodicNotesProvider,
@@ -17,7 +17,7 @@ export interface IV0Settings extends IPeriodicNotesPluginSettings {
 export class V0Provider implements IPeriodicNotesProvider {
   convertSettings(from: IPeriodicNotesPluginSettings): ISettings {
     const convertedFrom = from as IV0Settings;
-    const to: ISettings = Object.assign({}, DEFAULT_SETTINGS);
+    const to: ISettings = buildSettings();
 
     to.daily.available = convertedFrom.daily.enabled;
     to.weekly.available = convertedFrom.weekly.enabled;
