@@ -1,6 +1,6 @@
 import { get, Readable } from 'svelte/store';
 import {
-  DEFAULT_SETTINGS,
+  buildSettings,
   IPeriodicNotesPeriodicitySettings,
   IPeriodicNotesPluginSettings,
   IPeriodicNotesProvider,
@@ -30,12 +30,7 @@ export class V1Provider implements IPeriodicNotesProvider {
       (c) => c.id === convertedFrom.activeCalendarSet
     );
 
-    const to: ISettings = Object.assign({}, DEFAULT_SETTINGS);
-    to.daily.available = false;
-    to.weekly.available = false;
-    to.monthly.available = false;
-    to.quarterly.available = false;
-    to.yearly.available = false;
+    const to: ISettings = buildSettings();
     if (activeCalendarSet.length) {
       to.daily.available = activeCalendarSet[0]!.day?.enabled || false;
       to.weekly.available = activeCalendarSet[0]!.week?.enabled || false;
