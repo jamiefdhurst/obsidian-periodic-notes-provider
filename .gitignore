@@ -4,3 +4,4 @@ coverage
 junit.xml
 main.js
 node_modules
+*.tgz
