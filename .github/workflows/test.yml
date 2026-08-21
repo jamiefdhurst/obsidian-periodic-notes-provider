@@ -103,6 +103,17 @@ jobs:
       - name: Build
         run: |
           npm run build
+      - name: Check Declarations Are Up To Date
+        run: |
+          # types/ is generated from src/ and committed. If this fails, run
+          # `npm run build:types` and commit the result.
+          # --porcelain rather than `git diff` so a new, untracked .d.ts is caught too
+          DRIFT=$(git status --porcelain -- types)
+          if [ -n "$DRIFT" ]; then
+            echo "$DRIFT"
+            echo "::error::Committed declarations in types/ do not match src/ - run 'npm run build:types' and commit"
+            exit 1
+          fi
       - name: Check Bundle Size
         run: |
           SIZE=$(stat -f%z main.js 2>/dev/null || stat -c%s main.js)

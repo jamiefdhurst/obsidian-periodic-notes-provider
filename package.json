@@ -3,9 +3,16 @@
   "version": "2.0.1",
   "description": "Provides a consistent interface to interact with the Obsidian Periodic Notes plugin, primarily used for the Auto Periodic Notes and Auto Tasks plugins.",
   "main": "main.js",
+  "types": "./types/index.d.ts",
+  "files": [
+    "main.js",
+    "types"
+  ],
   "scripts": {
     "dev": "node esbuild.config.mjs",
-    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+    "build": "tsc -noEmit -skipLibCheck && npm run build:types && node esbuild.config.mjs production",
+    "build:types": "node -e \"require('fs').rmSync('types',{recursive:true,force:true})\" && tsc -p tsconfig.build.json",
+    "types:check": "npm run build:types && git diff --exit-code --stat types",
     "test": "jest",
     "coverage": "jest --coverage",
     "test-ci": "jest --ci --reporters=default --reporters=jest-junit --coverage",
